@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ejemplo de Consumo de API REST con AJAX</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+	<h1>Ejemplo de Consumo de API REST con AJAX</h1>
+
+	<button id="btn-select">Seleccionar Citas</button>
+	<button id="btn-insert" style="display:none;">Insertar Cita</button>
+	<button id="btn-update" style="display:none;">Actualizar Cita</button>
+	<button id="btn-delete" style="display:none;">Eliminar Cita</button>
+
+	<table id="tabla-citas" style="display:none;">
+		<thead>
+			<tr>
+				<th>CitaId</th>
+				<th>PacienteId</th>
+				<th>Fecha</th>
+				<th>HoraInicio</th>
+				<th>HoraFin</th>
+				<th>Estado</th>
+				<th>Motivo</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+
+	<div id="form-cita" style="display:none;">
+		<label for="paciente-id">PacienteId:</label>
+		<input type="number" id="paciente-id" name="paciente-id"><br>
+
+		<label for="fecha">Fecha:</label>
+		<input type="date" id="fecha" name="fecha"><br>
+
+		<label for="hora-inicio">Hora de Inicio:</label>
+		<input type="time" id="hora-inicio" name="hora-inicio"><br>
+
+		<label for="hora-fin">Hora de Fin:</label>
+		<input type="time" id="hora-fin" name="hora-fin"><br>
+
+		<label for="estado">Estado:</label>
+		<input type="text" id="estado" name="estado"><br>
+
+		<label for="motivo">Motivo:</label>
+		<input type="text" id="motivo" name="motivo"><br>
+
+		<button id="btn-save">Guardar</button>
+		<button id="btn-cancel">Cancelar</button>
+	</div>
+
+	<script>
+
+		// Función para obtener las citas y mostrarlas en la tabla
+		function obtenerCitas() {
+			$.ajax({
+				url: "api/citas.php",
+				type: "GET",
+				dataType: "json",
+				success: function(data) {
+					var tbody = $("#tabla-citas tbody");
+					tbody.empty();
+					$.each(data, function(index, cita) {
+						var row = "<tr>";
+						row += "<td>" + cita.CitaId + "</td>";
+						row += "<td>" + cita.PacienteId + "</td>";
+						row += "<td>" + cita.Fecha + "</td>";
+						row += "<td>" + cita.HoraInicio + "</td>";
+						row += "<td>" + cita.HoraFin + "</td>";
+						row += "<td>" + cita.Estado + "</td>";
+						row += "<td>" + cita.Motivo + "</td>";
+						row += "</tr>";
+						tbody.append(row);
+					});
+					$("#tabla-citas").show
+
+                    
